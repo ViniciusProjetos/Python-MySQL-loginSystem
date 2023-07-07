@@ -9,33 +9,33 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 while True:
-    print("Estudo de banco de dados Python&MySQL")                                   #Menu de opções
+    print("Estudo de banco de dados Python&MySQL")                                  
     print("Selecione uma opção:")
     print("1 - Cadastro")
     print("2 - Login")
 
     escolha = input()
 
-    if escolha == '1':                                                        #Sessão de criação de contas do usuario
+    if escolha == '1':                                                        
         username = input("*Escolha seu nome de usuário: ")
         while not username:
-            print("É obrigatório responder aos campos com *")                  #É obrigatorio responder aos campos nome de usuario e senha
+            print("É obrigatório responder aos campos com *")                  
             username = input("*Escolha seu nome de usuário: ")                     
-        sql = "SELECT * FROM logins WHERE usuario = %s"                      #Verificação do nome para garantir que não tenham contas com mesmo nome
+        sql = "SELECT * FROM logins WHERE usuario = %s"                      
         ver = (username,)
         mycursor.execute(sql, ver)
         result = mycursor.fetchone()
         if result:
             print("Usuário já existe. Escolha outro nome de usuário.")
         else:
-            usersenha = input("*Crie uma senha: ")                            #Criação da senha
+            usersenha = input("*Crie uma senha: ")                            
             while not usersenha:
                 print("É obrigatório responder aos campos com *")
                 usersenha = input("*Crie uma senha: ")
-            contry = input("De onde você é? ")                                #Informando o pais ou qualquer local, mais não é obrigatorio responder
-            print("Cadastro realizado com sucesso !")                         #  pois no banco de dados ja deixa como automatico: BRASIL
+            contry = input("De onde você é? ")                                
+            print("Cadastro realizado com sucesso !")                         
 
-            sql = "INSERT INTO logins (usuario, senha, contry) VALUES (%s, %s, %s)"   #Inserindo os dados coletados no banco de dados SQL
+            sql = "INSERT INTO logins (usuario, senha, contry) VALUES (%s, %s, %s)"   
             val = (username, usersenha, contry)
             mycursor.execute(sql, val)
             mydb.commit()
@@ -44,11 +44,11 @@ while True:
         if reiniciar.upper() != "S":
             break
 
-    elif escolha == '2':                                                     #Sessão de validação das contas criadas para fazer login
+    elif escolha == '2':                                                     
         confirmusername = input("Login: ")
         confirmpassword = input("Senha: ")
-        sql = "SELECT * FROM logins WHERE usuario = %s AND senha = %s"        #Verificando se as entradas inseridas conferem com o que ja existe no
-        val = (confirmusername, confirmpassword)                              # banco de dados SQL
+        sql = "SELECT * FROM logins WHERE usuario = %s AND senha = %s"        
+        val = (confirmusername, confirmpassword)                              
         mycursor.execute(sql, val)
         result = mycursor.fetchone()
         if result:
@@ -56,7 +56,7 @@ while True:
         else:
             print("Usuário ou senha incorretos.")
 
-    elif escolha >= '3':                                                     #Caso o usuario não escolha nenhuma opção do menu
+    elif escolha >= '3':                                                     
         print("Comando inválido")
 
-mydb.close()                                                            #Encerrando a conexão com o banco de dados .
+mydb.close()                                                           
